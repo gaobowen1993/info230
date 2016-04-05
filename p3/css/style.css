@@ -1,0 +1,132 @@
+#background{
+	width: 80%;
+	margin-left: 140px;
+}
+.image{
+	width: 100px;
+}
+.title{
+	font-style: italic;
+	font-size:20px;
+	font-weight: bold;
+	color:#0063be;
+}
+#album-container{
+	margin: auto;
+	padding: 20px;
+	width: 1000px;
+	border:solid;
+	border-color: #0063be;
+	opacity: 0.8;
+
+}
+#albums{
+	border-spacing: 50px;
+	margin: auto;
+	border-radius: 10%;
+}
+
+#albums td{
+	background-color:#0063be;
+	width: 100px;
+	text-align: center;
+	padding: 50px;
+	border-radius: 10%;
+}
+#albums td:hover{
+	background-color:#4d94ff;
+}
+#albums td a {
+	color: white;
+	font-family: Verdana;
+}
+table {
+	margin: auto;
+}
+#album, #images{
+	border-collapse: collapse;
+}
+th, td{
+	border-top: 1px solid #c4ced4;
+}
+table td{
+	width: 100px;
+	text-align: center;
+	padding: 50px;
+}
+
+nav div.menu{
+	margin: 0px 0px 0px 0px;
+	position:relative;
+	width:100%;
+	background-color: #0063be;
+}
+
+nav div.menu ul{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	text-align: center;
+}
+
+nav div.menu ul li{
+	padding :14px 16px;
+	display: inline-block;
+}
+
+nav div ul li a{
+	padding: 14px 16px;
+	color:white;
+	font-family: Verdana;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+nav div ul li a:hover{
+	background-color:#005abb;
+}
+.title{
+	text-align: center;
+}
+#source{
+	font-size: 80%;
+	width:80%;
+	margin:0px auto;
+}
+label{
+	width:120px;
+	display: inline-block;
+}
+input[type=text]{
+	width:200px;
+	display: inline-block;
+}
+
+#addAlbum{
+	border:solid;
+	margin: auto;
+	padding: 10px;
+	width: 1000px;
+	border-color: #0063be;	
+}
+
+#addAlbum label {
+	font-family: Verdana;
+
+}
+#addPic{
+	text-align: center;
+	margin-bottom: 40px;
+}
+#addPic p{
+	font-family: Verdana;
+}
+#addPic-container{
+	border: solid #0063be;
+	width:500px;
+	margin: auto;
+	padding: 20px;
+}
+body{
+	background-image: url("../image/background.jpg");
+}

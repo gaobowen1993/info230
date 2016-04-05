@@ -1,0 +1,94 @@
+	<?php
+
+		// upload image to image folder
+		if(!empty($_FILES['newphoto'])) {
+			$newPhoto = $_FILES['newphoto'];
+			$originName = $newPhoto['name'];
+			if($newPhoto['error'] == 0) {
+				$tempName = $newPhoto['tmp_name'];
+				move_uploaded_file($tempName, "../image/$originName");
+				//$_SESSION['photos'][] = $originName;
+				$message .= "The file $originName was uploaded successfully.\n";
+			} else {
+				$message .= "Error: file $originName was not uploaded.\n";
+			}
+		}
+
+		// the add pictures button is clicked
+		if(!empty($_POST['save_picture'])) {
+			$field_values = array();
+			 // check input image information
+			foreach($fields as $field) {
+				$field_term = $field['term'];
+				$filter = $field['filter'];
+
+				if(!empty($_POST[$field_term])) {
+					$field_value = filter_input(INPUT_POST, $field_term, $filter);
+					if(!empty($field_value)) {
+						$field_values[$field_term] = $field_value;						
+					} else {
+						$message .= '<pre>Invalid Input!</pre>';
+						exit();
+					}
+				} else { $message .= '<p>Please type all fields!</p>'; }
+			}
+
+			// get chosen album
+			$count = 0;
+			$album_keys = array_keys($album_values);
+			$chosenAlbums = array();						
+			foreach($album_keys as $album_key) {
+				if(!empty($_POST[$album_key])) {
+					$chosenAlbum = $_POST[$album_key];
+					$chosenAlbums[$count] = $chosenAlbum;
+					$count = $count + 1;
+				} 
+			}
+			if(empty($chosenAlbums)) {
+				$message .= '<p>Could not get ablum title from album table!</p>';
+			}
+
+			if (!empty($field_values) && !empty($chosenAlbums) && !empty($_FILES['newphoto'])) {
+
+				// add url and file_name to fields
+				$field_values['pURL'] = "../image/";
+				$field_values['file_name'] = $originName;
+
+				$field_keys = array_keys($field_values);
+				$field_keys = implode(',', $field_keys);
+				$field_values = implode("','", $field_values);
+
+				$addPic_sql = "INSERT INTO pictures ($field_keys) VALUES ('$field_values')";
+
+				if(!empty($addPic_sql)) {
+					if($mysqli->query($addPic_sql)) {
+						echo'<p>Pictures added successfully</p>';
+					} else {
+						echo'<p>Unsucessful adding</p><p>$mysqli->error</p>';
+					}
+				}
+
+				$pic_id = $mysqli->insert_id;
+				foreach($chosenAlbums as $chosenAlbum) {
+					$addRelation_sql = "INSERT INTO albums_pictures (aID, pID) VALUES ($chosenAlbum, $pic_id)";
+					echo $addRelation_sql;
+					//$mysqli->query($addRelation_sql);
+					if( ! empty( $addRelation_sql ) ) {
+						if( $mysqli->query($addRelation_sql) ) {
+							echo'<p>Relation added.</p>';
+						} else {
+							echo"<p>Error adding relationship.</p><p>$mysqli->error</p>";
+						}
+					}
+				}
+			}
+		}
+		print $message;
+
+	?>
+
+
+
+
+
+	wallpaper.pconline.com.cn
