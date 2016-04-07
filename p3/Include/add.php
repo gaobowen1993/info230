@@ -95,13 +95,9 @@
 				$count = $count + 1;
 			} 
 		}
-		$chosenAlbums['empty'] = $_POST['empty'];
-		if(empty($chosenAlbums)) {
-			$message .= '<p>Could not get ablum title from album table!</p>';
-		} 
+ 
 
-
-		if (!empty($field_values) && !empty($chosenAlbums) && !empty($_FILES['newphoto'])){
+		if (!empty($field_values) && !empty($_FILES['newphoto'])){
 				
 
 			// add url and file_name to fields
@@ -122,7 +118,7 @@
 				}
 			}
 
-			if(empty($_POST['empty'])) {
+			if(!empty($chosenAlbums)) {
 				$pic_id = $mysqli->insert_id;
 				foreach($chosenAlbums as $chosenAlbum) {
 					$addRelation_sql = "INSERT INTO albums_pictures (aID, pID) VALUES ($chosenAlbum, $pic_id)";
@@ -182,7 +178,7 @@
 			while($row = $results->fetch_row()) {
 				print("<label></label><input type='checkbox' name='$row[1]' value='$row[1]'>$row[0]<br>");
 			}
-			print("<label></label><input type='checkbox' name='empty' value='empty'>No Album<br>");
+			//print("<label></label><input type='checkbox' name='empty' value='empty'>No Album<br>");
 			//echo print_r($album_values);
 
 			print("<p><input type='file' name='newphoto'></p>");
