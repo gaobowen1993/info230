@@ -3,7 +3,7 @@
 	margin-left: 140px;
 }
 .image{
-	width: 100px;
+	width: 300px;
 }
 .title{
 	font-style: italic;
@@ -46,13 +46,9 @@ table {
 #album, #images{
 	border-collapse: collapse;
 }
-th, td{
-	border-top: 1px solid #c4ced4;
-}
 table td{
 	width: 100px;
 	text-align: center;
-	padding: 50px;
 }
 
 nav div.menu{

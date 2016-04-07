@@ -29,7 +29,7 @@
 		require("connect.php");		
 		$result = $mysqli->query("SELECT * FROM pictures");
 
-		print("<div class = \"table-container\"><table id='images'><thead><tr><th>Pic</th><th>Caption</th><th>Description</th><th>Credit</th></thead><tbody>");
+/*		print("<div class = \"table-container\"><table id='images'><thead><tr><th>Pic</th><th>Caption</th><th>Description</th><th>Credit</th></thead><tbody>");
 
 		while($row = $result->fetch_assoc()){
 				$caption = $row['pCaption'];
@@ -44,7 +44,21 @@
 						<td>$credit</td>
 						</tr>");
 		}
-		print("</tbody></table></div>");		
+		print("</tbody></table></div>");
+*/
+		print("<table>");
+			$count = 0;
+			while($row = $result->fetch_assoc()) {
+				if($count%4 == 0) print("<tr>");
+				print("<td><img class= \"image\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
+				$count += 1;
+				if($count%4 == 0) print("</tr>");
+			}
+
+			print("</table>");
+			print("<p><a href = \"album.php\">View All Albums</a></p>");
+		print("</table>");
+
 	?>
 
 </body>

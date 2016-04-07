@@ -55,7 +55,7 @@
 			print("<table id='album'>");
 			//$html_safe_sql = htmlentities( $sql_pic );
 			//print( "<p>Showing movies using the SQL query <br>$html_safe_sql</p>");
-				print("<thead><tr>");
+/*				print("<thead><tr>");
 					print("<th>Pic</th>");
 					foreach($fields as $field) {
 						$field_heading = $field['heading'];
@@ -71,6 +71,15 @@
 						print("<td>{$row['pCredit']}</td>");
 					print("</tr>");
 				}
+*/				
+			$count = 0;
+			while($row = $pic->fetch_assoc()) {
+				if($count%4 == 0) print("<tr>");
+				print("<td><img class= \"image\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
+				$count += 1;
+				if($count%4 == 0) print("</tr>");
+			}
+
 			print("</table>");
 			print("<p><a href = \"album.php\">View All Albums</a></p>");
 		}
