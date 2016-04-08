@@ -2,8 +2,10 @@
 	width: 80%;
 	margin-left: 140px;
 }
-.image{
+.imgSmall{
 	width: 300px;
+	border: dashed;
+	border-color: red;
 }
 .title{
 	font-style: italic;
@@ -47,7 +49,6 @@ table {
 	border-collapse: collapse;
 }
 table td{
-	width: 100px;
 	text-align: center;
 }
 

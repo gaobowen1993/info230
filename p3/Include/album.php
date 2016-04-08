@@ -75,7 +75,7 @@
 			$count = 0;
 			while($row = $pic->fetch_assoc()) {
 				if($count%4 == 0) print("<tr>");
-				print("<td><img class= \"image\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
+				print("<td><img class= \"image imgSize\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
 				$count += 1;
 				if($count%4 == 0) print("</tr>");
 			}
