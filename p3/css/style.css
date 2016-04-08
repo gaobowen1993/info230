@@ -48,6 +48,14 @@ table {
 #album, #images{
 	border-collapse: collapse;
 }
+#imgDetail{
+	width: 50%;
+	border-collapse: collapse;
+}
+#imgDetail th, td {
+	padding: 10px;
+	border: 1px solid #ddd;
+}
 table td{
 	text-align: center;
 }
@@ -123,6 +131,10 @@ input[type=text]{
 	width:500px;
 	margin: auto;
 	padding: 20px;
+}
+.imgBig-container{
+	display: block;
+	margin:10px auto;
 }
 body{
 	background-image: url("../image/background.jpg");

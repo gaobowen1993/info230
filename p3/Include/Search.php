@@ -43,7 +43,7 @@
 			print("<table>");
 			while($row = $result->fetch_assoc()){
 				if($count%3 ==0) {print("<tr>");}
-				print("<td><img class = 'image' src=\"{$row['pURL']}{$row['file_name']}\" alt ='image'></td>");
+				print("<td><img class = 'imgSmall' src=\"{$row['pURL']}{$row['file_name']}\" alt ='image'></td>");
 				$count += 1;
 				if($count%3 ==0) {print("</tr>");}
 			}
