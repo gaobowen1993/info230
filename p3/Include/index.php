@@ -1,3 +1,4 @@
+<?php session_start(); print_r($_SESSION)?>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +11,7 @@
 <body>
 
 	<?php
+		//if()
 		require("header.php");
 	?>
 
