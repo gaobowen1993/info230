@@ -1,5 +1,10 @@
 $(document).ready(function(){
-	$("li:last-child").click(function(){
-		
+	$(".logOut").click(function(){
+		var request = .ajax({
+			data: state,
+			dataType: 'text',
+			type: 'POST',
+			url: 
+		});
 	});
 });

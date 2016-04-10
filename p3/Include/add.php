@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 
@@ -83,7 +84,8 @@
 		$results1 = $mysqli->query($chooseAlbum_sql1);
 		$album_values1 = array();
 		while($row1 = $results1->fetch_row()) {
-		$album_values[$row1[1]] = $row1[1]; }			
+				$album_values[$row1[1]] = $row1[1]; 
+			}			
 		$count = 0;
 		$album_keys = array_keys($album_values);
 		echo print_r($album_keys);
@@ -145,7 +147,21 @@
 	?>
 
 	<?php
-		
+
+	if(isset($_SESSION['loggedUser'])){
+		if(empty($id)){
+		print("<div id='addPic'><form action='?id=pic' method='POST'>");
+		print("<p>Click the button to add picture: <input type='submit' name='save_picture' value='Add Picture'></p>");
+		print("</form></div>");
+		print("<div id='addPic'><form action='?id=album' method='POST'>");
+		print("<p>Click the button to add album: <input type='submit' name='save_album' value='Add Album'></p>");
+		print("</form></div>");
+		}
+	} else {
+		print("<p><a href = 'logIn.php?state=1'>Please log in</a></p>");
+	}
+	
+
 		if($id == 'album') {
 			// display add album form
 			$action = "Albums";

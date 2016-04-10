@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -44,8 +45,8 @@
 					print("<td><a href='?aID=$aID'>$title</a></td>");
 					if($count%3 == 0) { print("</tr>"); }
 				}
+				print("<tr><td><a href='editAlbum.php'>Edit Album</a></td><td><a>Delete Album</a></td></tr>");
 			print("</table>");
-			print("<p><a href = \"add.php?id=album\">Add Albums</a></p>");
 		}
 		else {
 			// display selected album
@@ -74,10 +75,10 @@
 */				
 			$count = 0;
 			while($row = $pic->fetch_assoc()) {
-				if($count%4 == 0) print("<tr>");
-				print("<td><img class= \"image imgSize\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
+				if($count%3 == 0) print("<tr>");
+				print("<td><img class= \"imgSmall\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></td>");
 				$count += 1;
-				if($count%4 == 0) print("</tr>");
+				if($count%3 == 0) print("</tr>");
 			}
 
 			print("</table>");

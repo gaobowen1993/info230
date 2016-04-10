@@ -1,17 +1,18 @@
-<?php session_start(); print_r($_SESSION)?>
+<?php session_start(); print_r($_SESSION); ?>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset = "UTF-8">
 	<link type = "text/css" rel = "stylesheet" href = "../css/style.css">
+	<script src='https://code.jquery.com/jquery-1.10.2.js'></script>
+	<script src='../js/logIn.js'></script>
 	<title>Image Page</title>
 </head>
 
 <body>
 
 	<?php
-		//if()
 		require("header.php");
 	?>
 
