@@ -102,13 +102,17 @@
 	if(isset($_SESSION['loggedUser'])) {
 
 		if(empty($add)&&empty($deleteId)&&empty($edit)) {
+
+		print('<div class = "title">
+			<h1>Edit albums</h1>
+		</div>');			
 			$result = $mysqli->query($query);
 		
 			if(!$result) {
 				echo 'Query error';
 				die();
 			} else {
-				print('<div><table>');
+				print('<div id = "editAlbum-container"><table id = "editAlbum-table">');
 				while($row = $result->fetch_assoc()) {
 					print("<tr><td>{$row['aTitle']}</td>
 						<td><a href=\"?edit={$row['aID']}\">Edit image</a></td>
@@ -116,11 +120,15 @@
 						<td><a href=\"?deleteId={$row['aID']}\">Remove image</a></td>
 						</tr>");
 				}
-				print('</table></div>');
+				print('</table><p><a href="album.php">Back to album collections</a></p></div>');
 			}
 		}
 
 		if($add) {
+
+		print('<div class = "title">
+			<h1>Add images</h1>
+		</div>');			
 			// get all images to add
 			$result = $mysqli->query($query_image);
 
@@ -141,8 +149,8 @@
 					if ($count%4 == 0) print("</tr>");
 				}
 				print('</div></table>');
-				print("<p style = \"text-align:center\"><input type = 'submit' name = 'submitAdd' value = 'Add'></p>");
-				print("</form>");
+				print("<p style = \"text-align:center\"><input class = \"button\" type = \"submit\" name = 'submitAdd' value = 'Add'></p>");
+				print("</form><p style = \"text-align:center\"><a href=\"editAlbum.php\">Back to edit albums</a></p>");
 
 				// if the add image submit button is clicked		
 				if(!empty($_POST['submitAdd'])) {
@@ -177,6 +185,9 @@
 		}
 
 		if($deleteId) {
+			print('<div class = "title">
+				<h1>Remove images</h1>
+			</div>');			
 			// get current images in this album
 			$result = $mysqli->query($query_current_image);
 
@@ -195,11 +206,16 @@
 					if($count%4 ==0) print("</tr>");
 				}
 				print("</table><div></form>");
-				print("<p style=\"text-align:center\"><input type = \"submit\" name = \"submitDelete\" value = \"Delete\"></p>");
+				print("<p style=\"text-align:center\"><input class = \"button\" type = \"submit\" name = \"submitDelete\" value = \"Delete\"></p>");
+				print("<p style = \"text-align:center\"><a href=\"editAlbum.php\">Back to edit albums</a></p>");
 			}
 		}
 
 		if($edit) {
+
+			print('<div class = "title">
+				<h1>Edit Title</h1>
+			</div>');			
 			$result = $mysqli->query($edit_query);
 
 			if(!$result) {
@@ -207,10 +223,10 @@
 				die();
 			} else {
 				$row = $result->fetch_assoc();
-				print("<div><form method = \"POST\">");
-				print("<input type = \"text\" name = \"editAlbum\" value = \"{$row['aTitle']}\">");
-				print("<br><input type=\"submit\" name = \"editButton\">");
-				print("</form></div>");
+				print("<div id = \"editAlbum-container\"><form method = \"POST\">");
+				print("<p style = \"text-align:center\"><label>Title:</label><input type = \"text\" name = \"editAlbum\" value = \"{$row['aTitle']}\"></p>");
+				print("<p style = \"text-align:center\"><input class = \"button\" type = \"submit\" name = \"editButton\"></p>");
+				print("</form><p style = \"text-align:center\"><a href=\"editAlbum.php\">Back to edit albums</a></p></div>");
 			}
 
 		}

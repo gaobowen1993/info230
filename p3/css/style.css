@@ -56,7 +56,7 @@ li a:hover{
 
 
 .imgSmall{
-	width: 300px;
+	width: 250px;
 }
 .title{
 	font-style: italic;
@@ -70,6 +70,7 @@ li a:hover{
 	width: 1000px;
 	border:solid;
 	border-color: #0063be;
+	border-radius: 5%;
 	opacity: 0.8;
 
 }
@@ -149,6 +150,7 @@ input[type=text]{
 }
 #addPic-container{
 	border: solid #0063be;
+	border-radius: 5%;
 	width:500px;
 	margin: auto;
 	padding: 20px;
@@ -159,4 +161,88 @@ input[type=text]{
 }
 body{
 	background-image: url("../image/background.jpg");
+}
+#editAlbum-container {
+	margin: 50px auto;
+	width: 800px;
+	padding: 50px;
+	border:solid;
+	border-color: #0063be;
+	border-radius: 5%; 
+}
+#editAlbum-container p{
+	text-align: center;
+}
+
+#editAlbum-table {
+	font-family: "Trebuchet MS";
+	font-size: 16px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+
+#editAlbum-table td {
+	border-width: 0px;
+	border-top: 1px solid #ddd;
+	padding: 20px;
+	margin: 10px;
+}
+
+#deleteAlbum-container {
+	border:solid;
+	border-color: #0063be;
+	border-radius: 5%; 
+	margin: auto;
+	padding: 10px;
+	width: 400px;
+	text-align: center;
+}
+
+.button {
+	font-size: 20px;
+}
+
+#editImage-container {
+	margin: 50px auto;
+	width: 800px;
+	padding: 50px;
+	border:solid;
+	border-color: #0063be;
+	border-radius: 5%; 
+}
+#editImage-container p {
+	text-align: center;
+}
+#deleteImage-container {
+	margin: 50px auto;
+	width: 800px;
+	padding: 20px 20px 20px 50px;
+	border:solid;
+	border-color: #0063be;
+	border-radius: 5%; 	
+}
+#partialSearch{
+	border:solid;
+	border-color: #0063be;
+	width: 500px;
+	height: 300px;
+	margin: 50px auto; 
+}
+#partialSearch p{
+	text-align: center;
+}
+
+#multiSearch{
+	border:solid;
+	border-color: #0063be;
+	width: 500px;
+	height: 300px;
+	margin: auto; 
+}
+#multiSearch p{
+	text-align: center;
+}
+.hidden {
+	display: none;
 }

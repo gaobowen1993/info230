@@ -57,18 +57,22 @@
 	<?
 		if(isset($_SESSION['loggedUser'])) {
 
+		print('<div class = "title">
+			<h1>Delete albums</h1>
+		</div>');			
+
 			$result = $mysqli->query('SELECT * FROM albums');
 			if(!$result) {
 				echo 'Query error';
 				die();
 
 			} else {
-				print("<div><form method = 'POST'>");
+				print("<form method = 'POST'><div id = \"deleteAlbum-container\">");
 				while($row = $result->fetch_assoc()) {
 					print("<p><label style=\"width:180px\">{$row['aTitle']}</label><input type = \"checkbox\" name = \"{$row['aID']}\" value= \"{$row['aID']}\" ></p>");
 				}
-				print("<input type = 'submit' name = 'delete_submit' value = 'Delete'>");
-				print("</form></div>");
+				print("<input class = \"button\" type = \"submit\" name = 'delete_submit' value = 'Delete'>");
+				print("<p><a href=\"album.php\">Back to album collections</a></p></div></form>");
 				print $message;
 			}
 

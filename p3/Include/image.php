@@ -55,7 +55,7 @@
 			} else {
 				$message.= 'Delete sucess';
 			}
-		}
+		}		
 
 ?>
 
@@ -78,20 +78,15 @@
 				$count = 0;
 				while($row = $result->fetch_assoc()) {
 					if($count%4 == 0) print("<tr>");
-					print("<td><img class= \"imgSmall\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\">
-						<br><p><label style =\"width:100px;\"><a href=\"?id={$row['pID']}\">View Details</a></label>
-						<label style = \"width:50px;\"><a href =\"?edit={$row['pID']}\">Edit</a></label>
+					print("<td><a href=\"?id={$row['pID']}\"><img class= \"imgSmall\" src=\"{$row['pURL']}{$row['file_name']}\" alt=\"image\"></a>
+						<br><p><label style = \"width:50px;\"><a href =\"?edit={$row['pID']}\">Edit</a></label>
 						<label style = \"width:100px;\"><a href =\"?delete={$row['pID']}\">Delete</a></label></p>
 						</td>");
-					//						<br><p style=\"float:left\"><a href=\"?id={$row['pID']}\">View Details</a></p><p style=\"float:right\"><a href =\"?edit={$row['pID']}\">Edit</a></p>
-
-					//print("<td><img id= \"imgBig\" src=\"\" alt=\"\"></td>");
 					$count += 1;
 					if($count%4 == 0) print("</tr>");
 				}
 
 				print("</table>");
-				print("<p><a href = \"album.php\">View All Albums</a></p>");
 			print("</table>");			
 		}
 		if(!empty($pID)) {
@@ -139,12 +134,12 @@
 
 				$row = $imgEdit->fetch_assoc();
 
-				print("<div><form method = \"POST\">");
+				print("<div id = \"editImage-container\"><form method = \"POST\">");
 				print("<p><label>Caption: </label><input type = \"text\" name= \"caption\" value= \"{$row['pCaption']}\"></p>");
 				print("<p><label>Description: </label><input type = \"text\" name=\"description\" value= \"{$row['pDesc']}\"></p>");
 				print("<p><label>Credit: </label><input type = \"text\" name=\"credit\" value=\"{$row['pCredit']}\"></p>");
-				print("<input type =\"submit\" name = \"saveEdit\" value = \"Save\">");
-				print("</form></div>");
+				print("<p><input class = \"button\" type = \"submit\" name = \"saveEdit\" value = \"Save\"></p>");
+				print("</form><p><a href=\"image.php\">Back to image collections</a></p></div>");
 			}
 			else {
 				echo '<p><a href="logIn.php">Please log in</a></p>';
@@ -164,10 +159,11 @@
 					}
 
 					$row = $fileName->fetch_assoc();
-					print("<div><p>Are you sure you want to delete image {$row['file_name']} ?</p>");
+					print("<div id = \"deleteImage-container\"><p>Are you sure you want to delete image {$row['file_name']} ?</p>");
 					print("<form method = 'POST'>");
-					print("<input type = \"submit\" name = \"delete\" value = \"Yes\">");
-					print("<input type = \"submit\" name = \"notDelete\" value = \"No\">");
+					print("<p><input class = \"button\" type = \"submit\" name = \"delete\" value = \"Yes\"><p>");
+					print("<p>No I want to go back to image collections <a href = \"image.php\">Click here</a></p>");
+					//<input class = \"button\" type = \"submit\" name = \"notDelete\" value = \"No\">
 					print("</form></div>");
 				}
 			} else {

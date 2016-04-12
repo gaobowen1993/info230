@@ -1,5 +1,4 @@
-<?php session_start(); print_r($_SESSION); 
-?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +28,7 @@
 		
 			if($valid_password) {
 				$_SESSION['loggedUser'] = $username;
-				$message.= 'success';
+				$message.= 'Log in success. User navigation bar to navigate';
 			} else {
 				$message.= "<p>You do not sucessfully log in.</p>";
 				$message.= "<p><a href = 'logIn.php?state=1'>Please log in</a></p>";

@@ -82,7 +82,7 @@
 			}
 
 			print("</table>");
-			print("<p><a href = \"album.php\">View All Albums</a></p>");
+			print("<p style=\"text-align:center\"><a href = \"album.php\">View All Albums</a></p>");
 		}
 	?>
 

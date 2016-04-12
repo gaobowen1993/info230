@@ -150,10 +150,10 @@
 	if(isset($_SESSION['loggedUser'])){
 		if(empty($id)){
 		print("<div id='addPic'><form action='?id=pic' method='POST'>");
-		print("<p>Click the button to add picture: <input type='submit' name='save_picture' value='Add Picture'></p>");
+		print("<p>Click the button to add picture: <input class = \"button\" type = \"submit\" name='save_picture' value='Add Picture'></p>");
 		print("</form></div>");
 		print("<div id='addPic'><form action='?id=album' method='POST'>");
-		print("<p>Click the button to add album: <input type='submit' name='save_album' value='Add Album'></p>");
+		print("<p>Click the button to add album: <input class = \"button\" type = \"submit\" name='save_album' value='Add Album'></p>");
 		print("</form></div>");
 		}
 	} else {
@@ -197,7 +197,7 @@
 			//echo print_r($album_values);
 
 			print("<p><input type='file' name='newphoto'></p>");
-			print("<input type='submit' name='button' value='Save'>");
+			print("<input class = \"button\" type = \"submit\" name='button' value='Save'>");
 			print("</form>");
 			print("<p><a href = image.php>View All Pictures</a></p></div>");
 		}
