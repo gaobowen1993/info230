@@ -7,22 +7,20 @@
 	<link type = "text/css" rel = "stylesheet" href = "../css/style.css">
 	<title>Search Pictures</title>
 </head>
+
 	<?php
+		$message='';
 		$keyword = filter_input(INPUT_POST, 'searchField', FILTER_SANITIZE_STRING);
-		echo $keyword;
+		
 		if(empty($keyword)) {
-			echo 'invalid input';
+			$message.= 'invalid input';
 		} else {
 			require '../config.php';
 			require 'connect.php';
-			echo "SELECT * FROM pictures WHERE pCaption LIKE '%".$keyword."%'
-								OR pURL LIKE '%".$keyword."%' OR file_name LIKE '%".$keyword."%'
-								OR pDesc LIKE '%".$keyword."%' OR pCredit LIKE '%".$keyword."%'";
 			$result = $mysqli->query("SELECT * FROM pictures WHERE pCaption LIKE '%".$keyword."%'
 								OR pURL LIKE '%".$keyword."%' OR file_name LIKE '%".$keyword."%'
 								OR pDesc LIKE '%".$keyword."%' OR pCredit LIKE '%".$keyword."%'");			
 		}
-
 	?>
 
 <body>
@@ -50,6 +48,7 @@
 			}
 			print("</table>");
 		}
+		print $message;
 	?>
 </body>
 

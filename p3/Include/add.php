@@ -45,7 +45,7 @@
 		}		
 	}
 
-		// upload image to image folder
+	// upload image to image folder
 	if(!empty($_FILES['newphoto'])) {
 		$newPhoto = $_FILES['newphoto'];
 		$originName = $newPhoto['name'];
@@ -59,7 +59,7 @@
 		}
 	}
 
-		// the add pictures button is clicked
+	// the add pictures button is clicked
 	if(!empty($_POST['button'])) {
 
 		$field_values = array();
@@ -88,7 +88,6 @@
 			}			
 		$count = 0;
 		$album_keys = array_keys($album_values);
-		echo print_r($album_keys);
 		$chosenAlbums = array();						
 		foreach($album_keys as $album_key) {
 			if(!empty($_POST[$album_key])) {
@@ -111,12 +110,12 @@
 			$field_values = implode("','", $field_values);
 
 			$addPic_sql = "INSERT INTO pictures ($field_keys) VALUES ('$field_values')";
-			echo $addPic_sql;
+			
 			if(!empty($addPic_sql)) {
 				if($mysqli->query($addPic_sql)) {
-					echo'<p>Pictures added successfully</p>';
+					$message.='<p>Pictures added successfully</p>';
 				} else {
-					echo'<p>Unsucessful adding</p><p>'.$mysqli->errno.'</p>';
+					$message.='<p>Unsucessful adding</p><p>'.$mysqli->errno.'</p>';
 				}
 			}
 
@@ -124,17 +123,17 @@
 				$pic_id = $mysqli->insert_id;
 				foreach($chosenAlbums as $chosenAlbum) {
 					$addRelation_sql = "INSERT INTO albums_pictures (aID, pID) VALUES ($chosenAlbum, $pic_id)";
-					echo $addRelation_sql;
+					
 					//$mysqli->query($addRelation_sql);
 					if( ! empty( $addRelation_sql ) ) {
 						if( $mysqli->query($addRelation_sql) ) {
-							echo'<p>Relation added.</p>';
+							$message.='<p>Relation added.</p>';
 						} else {
-							echo"<p>Error adding relationship.</p><p>$mysqli->error</p>";
+							$message.="<p>Error adding relationship.</p><p>$mysqli->error</p>";
 						}
 					}
 				}				
-			} else { echo'you choose no album'; }
+			} else { $message.='you choose no album'; }
 		} else { $message .= '<p>incorrect<p>'; }
 	}
 

@@ -45,7 +45,7 @@
 					print("<td><a href='?aID=$aID'>$title</a></td>");
 					if($count%3 == 0) { print("</tr>"); }
 				}
-				print("<tr><td><a href='editAlbum.php'>Edit Album</a></td><td><a>Delete Album</a></td></tr>");
+				print("<tr><td><a href='editAlbum.php'>Edit Album</a></td><td><a href='deleteAlbum.php'>Delete Album</a></td></tr>");
 			print("</table>");
 		}
 		else {

@@ -5,20 +5,89 @@
 <head>
 	<meta charset = "UTF-8">
 	<link type = "text/css" rel = "stylesheet" href = "../css/style.css">
-	<title>Album Page</title>
+	<title>Edit Album</title>
 </head>
 
 	<?php
 		require '../config.php';
 		require 'connect.php';
-		$query = 'SELECT * FROM albums';
+
+		$message = '';
 		$add = filter_input(INPUT_GET, 'add', FILTER_SANITIZE_NUMBER_INT); // get the added album id
 		$deleteId = filter_input(INPUT_GET, 'deleteId', FILTER_SANITIZE_NUMBER_INT);
-		$query_image = 'SELECT * FROM pictures';
+		$edit = filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT);
+		$editAlbum = filter_input(INPUT_POST, 'editAlbum', FILTER_SANITIZE_STRING);
+
+		$query = 'SELECT * FROM albums';
+		$query_image = 'SELECT p1.pURL, p1.file_name, p1.pID FROM pictures p1 WHERE p1.pID 
+							NOT IN (SELECT DISTINCT p.pID FROM pictures p
+							INNER JOIN albums_pictures ap ON p.pID = ap.pID WHERE ap.aID='.$add.')
+							 UNION SELECT p2.pURL, p2.file_name, p2.pID FROM pictures p2 WHERE p2.pID NOT IN 
+							(SELECT pID FROM albums_pictures)';
 		$query_current_image = 'SELECT * FROM pictures p INNER JOIN albums_pictures ap ON p.pID = ap.pID WHERE ap.aID ='.$deleteId;
+		$edit_query = 'SELECT * FROM albums WHERE aID='.$edit;
 
 		$image_array = array();
 		$current_image_array = array();
+
+		// if remove button has clicked	
+		if(!empty($_POST['submitDelete'])) {
+
+			// get current images in this album
+			$current_image = $mysqli->query($query_current_image);
+
+			if(!$current_image) {
+				$message.= 'Query error';
+				die();
+			} else {
+				while($row = $current_image->fetch_assoc()) {
+					$current_image_array[$row['pID']] = $row['pID'];
+				}					
+			} 
+
+			// check if there are any images in the album
+			if(!empty($current_image_array)) {
+
+				$chosenImages = array(); // array of chosen images to be deleted
+				$conut = 0; // key of chosenImage
+				$image_keys = array_keys($current_image_array);
+				foreach($image_keys as $image_key) {
+					if(!empty($_POST[$image_key])) {
+						$chosenImages[$count] = $_POST[$image_key];
+						$count += 1;
+					}
+				}
+				// check if any image is selected
+				if(!empty($chosenImages)) {
+					foreach($chosenImages as $chosenImage) {
+						$delete_query = 'DELETE FROM albums_pictures WHERE aID='.$deleteId.' AND pID='.$chosenImage;
+						$result = $mysqli->query($delete_query);
+						if(!$result) {
+							$message.= 'Query error';
+							die();
+						} else {
+							$message.= 'You have delete picture '.$chosenImage.' from album '.$deleteId;
+						}
+					}
+				} else {
+					$message.= 'Please select an image.';
+				}
+			} else {
+				$message.= 'No images in this album.';
+			}
+		}
+
+		if(!empty($_POST['editButton'])) {
+
+			$editResult = $mysqli->query("UPDATE albums SET aTitle = '$editAlbum' WHERE aID = $edit");
+
+			if((!$editResult)) {
+				$message.= 'Query error';
+				die();
+			} else {
+				$message.='Edit sucess.';
+			}
+		}
 
 	?>
 
@@ -32,7 +101,7 @@
 
 	if(isset($_SESSION['loggedUser'])) {
 
-		if(empty($add)&&empty($deleteId)) {
+		if(empty($add)&&empty($deleteId)&&empty($edit)) {
 			$result = $mysqli->query($query);
 		
 			if(!$result) {
@@ -42,6 +111,7 @@
 				print('<div><table>');
 				while($row = $result->fetch_assoc()) {
 					print("<tr><td>{$row['aTitle']}</td>
+						<td><a href=\"?edit={$row['aID']}\">Edit image</a></td>
 						<td><a href=\"?add={$row['aID']}\">Add image</a></td>
 						<td><a href=\"?deleteId={$row['aID']}\">Remove image</a></td>
 						</tr>");
@@ -127,43 +197,24 @@
 				print("</table><div></form>");
 				print("<p style=\"text-align:center\"><input type = \"submit\" name = \"submitDelete\" value = \"Delete\"></p>");
 			}
+		}
 
-			if(!empty($_POST['submitDelete'])) {
+		if($edit) {
+			$result = $mysqli->query($edit_query);
 
-				// check if there are any images in the album
-				if(!empty($current_image_array)) {
-
-					$chosenImages = array(); // array of chosen images to be deleted
-					$conut = 0; // key of chosenImage
-					$image_keys = array_keys($current_image_array);
-					foreach($image_keys as $image_key) {
-						if(!empty($_POST[$image_key])) {
-							$chosenImages[$count] = $_POST[$image_key];
-							$count += 1;
-						}
-					}
-					// check if any image is selected
-					if(!empty($chosenImages)) {
-						foreach($chosenImages as $chosenImage) {
-							$delete_query = 'DELETE FROM albums_pictures WHERE aID='.$deleteId.' AND pID='.$chosenImage;
-							$result = $mysqli->query($delete_query);
-							if(!$result) {
-								echo 'Query error';
-								die();
-							} else {
-								echo 'You have delete picture '.$chosenImage.' from album '.$deleteId;
-							}
-						}
-					} else {
-						echo 'Please select an image.';
-					}
-				} else {
-					echo 'No images in this album.';
-				}
+			if(!$result) {
+				echo 'Query error';
+				die();
+			} else {
+				$row = $result->fetch_assoc();
+				print("<div><form method = \"POST\">");
+				print("<input type = \"text\" name = \"editAlbum\" value = \"{$row['aTitle']}\">");
+				print("<br><input type=\"submit\" name = \"editButton\">");
+				print("</form></div>");
 			}
 
 		}
-
+		print $message;
 	} else {
 		print('<p><a href = "logIn.php">Please log in</a><p>');
 	}
